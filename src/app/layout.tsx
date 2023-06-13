@@ -1,8 +1,11 @@
+'use client'
 import './globals.css'
 import "allotment/dist/style.css";
 import { Inter } from 'next/font/google'
 import { Providers } from '../redux/provider'
+import Header from '../components/Header';
 const inter = Inter({ subsets: ['latin'] })
+import { usePathname } from 'next/navigation';
 
 export const metadata = {
   title: 'Hello',
@@ -14,9 +17,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  let Navbar: () => JSX.Element = Header
+  const pathname: string = usePathname()
+
   return (
     <html lang="en">
-      <body  suppressHydrationWarning={true} >  <Providers>{children}</Providers></body>
+      <body  suppressHydrationWarning={true} >  <Providers>
+        {pathname === '/' ? <> </> : <Navbar /> }
+        {children}
+        </Providers></body>
     </html>
   )
 }
