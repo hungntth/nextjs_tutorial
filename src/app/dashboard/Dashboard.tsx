@@ -1,7 +1,9 @@
-import React from 'react'
+"use client"
+import { useHeader } from "@/src/contexts/useHeader";
+import React from "react";
 
 export default function Dashboard() {
-  return (
-    <div>Dashboard</div>
-  )
+  const { setShowHeader } = useHeader();
+  setShowHeader(false);
+  return <div>Dashboard</div>;
 }
