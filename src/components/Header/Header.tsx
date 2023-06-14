@@ -1,7 +1,7 @@
 const Header = () => {
   const checkAuth = true;
   return (
-    <div className="navbar bg-secondary-content text-primary-content">
+    <div className="navbar bg-secondary-content text-primary-content shadow-lg sticky z-40 top-0">
       <div className="flex-1">
         <img src="https://dev.teky.edu.vn/static/web/v3/img/common/logo.svg" alt=""/>
       </div>
@@ -14,7 +14,7 @@ const Header = () => {
           </label>
           <ul
             tabIndex={0}
-            className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+            className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-gray-400 rounded-box w-52"
           >
             <li>
               <a className="justify-between">
