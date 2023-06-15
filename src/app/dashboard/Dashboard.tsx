@@ -1,20 +1,25 @@
 import Header from "@/src/components/Header";
+import Selector from "@/src/components/Selector";
 import React from "react";
 
 export default function Dashboard() {
   return (
     <div className="bg-gray">
       <main className="container">
+        <div className="py-4 grid grid-cols-4 gap-4">
+          <div className="col-span-2">
+            <p className="text-2xl font-bold leading-8 tracking-tight pb-4">Danh sách dự án</p>
+            <button className="btn btn-info"><p className="font-bold">Thêm dự án</p></button>
+          </div>
+          <Selector />
+        </div>
         <ul>
           <li className="py-4">
             <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
               <div className="space-y-3 xl:col-span-3">
                 <div>
                   <h3 className="text-2xl font-bold leading-8 tracking-tight">
-                    <a
-                      className="text-gray-900 dark:text-gray-100"
-                      href="/blog/new-features-in-v1"
-                    >
+                    <a className="text-gray-900 dark:text-gray-100" href="#">
                       New features in v1
                     </a>
                   </h3>
@@ -51,10 +56,7 @@ export default function Dashboard() {
               <div className="space-y-3 xl:col-span-3">
                 <div>
                   <h3 className="text-2xl font-bold leading-8 tracking-tight">
-                    <a
-                      className="text-gray-900 dark:text-gray-100"
-                      href="#"
-                    >
+                    <a className="text-gray-900 dark:text-gray-100" href="#">
                       Introducing Multi-part Posts with Nested Routing
                     </a>
                   </h3>
@@ -93,10 +95,7 @@ export default function Dashboard() {
               <div className="space-y-3 xl:col-span-3">
                 <div>
                   <h3 className="text-2xl font-bold leading-8 tracking-tight">
-                    <a
-                      className="text-gray-900 dark:text-gray-100"
-                      href="#"
-                    >
+                    <a className="text-gray-900 dark:text-gray-100" href="#">
                       Introducing Tailwind Nextjs Starter Blog
                     </a>
                   </h3>
@@ -134,10 +133,7 @@ export default function Dashboard() {
               <div className="space-y-3 xl:col-span-3">
                 <div>
                   <h3 className="text-2xl font-bold leading-8 tracking-tight">
-                    <a
-                      className="text-gray-900 dark:text-gray-100"
-                      href="#"
-                    >
+                    <a className="text-gray-900 dark:text-gray-100" href="#">
                       Deriving the OLS Estimator
                     </a>
                   </h3>
@@ -175,10 +171,7 @@ export default function Dashboard() {
               <div className="space-y-3 xl:col-span-3">
                 <div>
                   <h3 className="text-2xl font-bold leading-8 tracking-tight">
-                    <a
-                      className="text-gray-900 dark:text-gray-100"
-                      href="#"
-                    >
+                    <a className="text-gray-900 dark:text-gray-100" href="#">
                       Images in Next.js
                     </a>
                   </h3>
