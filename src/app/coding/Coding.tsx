@@ -66,7 +66,7 @@ export default function Coding() {
     <div className=" mx-4 mt-16">
       <div className="flex h-screen">
         <div className="border-2 border-gray-500 h-50 relative w-1/2 ">
-          <div className="flex items-center mb-2 absolute right-0 left-0 -top-12">
+          <div className="flex items-center mb-2 absolute right-0 left-0 -top-12 whitespace-nowrap">
             <div className="border-2 border-gray-400 flex-1 rounded-md self-stretch flex items-center pl-2">
               <p>Name of project</p>
             </div>
