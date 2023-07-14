@@ -1,3 +1,3 @@
-import Coding from "./Coding";
+import Coding from './Coding'
 
 export default Coding

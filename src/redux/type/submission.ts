@@ -1,5 +1,5 @@
-export interface Submission{
-    source_code: string
+export interface Submission {
+  source_code: string
   language_id: number
   stdin: string
   expected_output: any
@@ -36,12 +36,11 @@ export interface Submission{
   language: Language
 }
 export interface Status {
-    id: number
-    description: string
-  }
-  
-  export interface Language {
-    id: number
-    name: string
-  }
-  
+  id: number
+  description: string
+}
+
+export interface Language {
+  id: number
+  name: string
+}
