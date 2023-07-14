@@ -19,7 +19,7 @@ export default function Dashboard() {
   const queryString: { page?: string } = useQueryParams()
   const page = Number(queryString.page) || 1
 
-  const [languageId, setLanguageId] = useState(null)
+  const [languageId, setLanguageId] = useState('')
   const [languages, setLanguages] = useState([])
 
   const queryConfig = useQueryConfig()
@@ -48,7 +48,7 @@ export default function Dashboard() {
   })
 
   const myProjects = useQuery({
-    queryKey: ['myProjects', page],
+    queryKey: ['myProjects', page, PER_PAGE, languageId, DELETED],
     queryFn: () => getAllMyProject(page, PER_PAGE, languageId, DELETED),
     staleTime: 60 * 60 * 1000
   })
@@ -69,9 +69,9 @@ export default function Dashboard() {
         <div className='py-4 flex justify-between'>
           <div className=''>
             <p className='text-2xl font-bold leading-8 tracking-tight pb-4'>Danh sách dự án</p>
-            <ModelDashboard />
+            <ModelDashboard setLanguageId={setLanguageId}/>
           </div>
-          <Selector data={languages} />
+          <Selector data={languages} languageId={languageId} setLanguageId={setLanguageId}/>
         </div>
         <Container classNames='pb-8 lg:pb-12 space-y-8'>
           <CollectionGrid data={dataProjects?.data} />

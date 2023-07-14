@@ -1,6 +1,6 @@
 export function removeNullUndefinedKeys<T>(obj: T): T {
   for (let key in obj) {
-    if (obj[key] === null || obj[key] === undefined) {
+    if (obj[key] === null || obj[key] === undefined || obj[key] === '') {
       delete obj[key]
     }
   }

@@ -1,14 +1,24 @@
-import React from 'react'
-import type { UseFormRegister, RegisterOptions } from 'react-hook-form'
+import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 
-export default function Selector(data: any) {
+interface Props {
+  data: any
+  setLanguageId: Dispatch<SetStateAction<string>>
+  languageId: string
+}
+
+export default function Selector({ data, setLanguageId, languageId }: Props) {
+  const handleSelector = (e: ChangeEvent<HTMLSelectElement>) => {
+    setLanguageId(e.target.value)
+  }
   return (
     <div>
       <select
-        defaultValue='option1'
+        value={languageId}
         className='select select-bordered focus:outline-none max-w-[16rem] m-2 border-2 border-gray-400'
+        onChange={(e) => handleSelector(e)}
       >
-        {data.data.map((item: any) => (
+        <option key='defaultOption' value=''>-------------------</option>
+        {data.map((item: any) => (
           <option key={item.id} value={item.id}>
             {item.name}
           </option>
