@@ -17,6 +17,9 @@ module.exports = {
       },
     },
   },
+  daisyui: {
+    themes: ["light"],
+  },
   plugins:[plugin(function ({ addComponents, theme }) {
     addComponents({
       '.container': {

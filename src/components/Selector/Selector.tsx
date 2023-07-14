@@ -1,17 +1,19 @@
-import React from "react";
+import React from 'react'
+import type { UseFormRegister, RegisterOptions } from 'react-hook-form'
 
-export default function Selector() {
+export default function Selector(data: any) {
   return (
     <div>
       <select
-        defaultValue="option1"
-        className="select select-bordered focus:outline-none max-w-xs float-right m-2 border-2 border-gray-400"
+        defaultValue='option1'
+        className='select select-bordered focus:outline-none max-w-[16rem] m-2 border-2 border-gray-400'
       >
-        <option value="option1">Python</option>
-        <option value="option2">Javascript</option>
-        <option value="option3">Go</option>
-        <option value="option4">Ruby</option>
+        {data.data.map((item: any) => (
+          <option key={item.id} value={item.id}>
+            {item.name}
+          </option>
+        ))}
       </select>
     </div>
-  );
+  )
 }
