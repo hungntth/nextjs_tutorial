@@ -13,7 +13,8 @@ export default function SSOCallback() {
   const params = useSearchParams()
   const code = params.get('code')
   const loginAccountMutation = useMutation({
-    mutationFn: (body: AuthRequest) => loginAccount(body)
+    mutationFn: (body: AuthRequest) => loginAccount(body),
+    retry: false
   })
 
   useEffect(() => {
@@ -34,4 +35,12 @@ export default function SSOCallback() {
         }
       )
   }, [])
+
+  return (
+    <div className='bg-gray-100'>
+      <div className='flex h-screen items-center justify-center'>
+        <div className='w-16 h-16 border-t-4 border-blue-500 rounded-full animate-spin' />
+      </div>
+    </div>
+  )
 }

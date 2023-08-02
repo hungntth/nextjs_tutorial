@@ -64,25 +64,21 @@ export default function Pagination({ queryConfig, pageSize, handleQueryPage, fro
         } else if (page >= pageSize - RANGE * 2 && pageNumber > RANGE && pageNumber < page - RANGE) {
           return renderDotBefore(index)
         }
-        return (
-          <>
-            {page === pageNumber ? (
-              <span
-                key={index}
-                className='relative z-10 inline-flex items-center bg-zinc-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-              >
-                {pageNumber}
-              </span>
-            ) : (
-              <span
-                key={index}
-                onClick={() => handleQueryPage(String(pageNumber))}
-                className='cursor-pointer relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
-              >
-                {pageNumber}
-              </span>
-            )}
-          </>
+        return page === pageNumber ? (
+          <span
+            key={index}
+            className='relative z-10 inline-flex items-center bg-zinc-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+          >
+            {pageNumber}
+          </span>
+        ) : (
+          <span
+            key={index}
+            onClick={() => handleQueryPage(String(pageNumber))}
+            className='cursor-pointer relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
+          >
+            {pageNumber}
+          </span>
         )
       })
   }
@@ -91,15 +87,15 @@ export default function Pagination({ queryConfig, pageSize, handleQueryPage, fro
     <div className='sm:flex sm:flex-1 sm:items-center sm:justify-between'>
       <div className='pb-2'>
         <p className='text-sm text-gray-700'>
-          Showing <span className='font-medium'>{fromItem}</span> to <span className='font-medium'>{toItem}</span> of{' '}
-          <span className='font-medium'>{totalRecords}</span> results
+          Hiển thị <span className='font-medium'>{fromItem}</span> đến <span className='font-medium'>{toItem}</span>{' '}
+          trong tổng <span className='font-medium'>{totalRecords}</span> kết quả
         </p>
       </div>
       <div className='pb-2'>
         <nav className='isolate inline-flex -space-x-px rounded-md shadow-sm' aria-label='Pagination'>
           {page === 1 ? (
             <span
-              key={'prev'}
+              key={'prev1'}
               className='cursor-not-allowed relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
             >
               <span className='sr-only'>«</span>
@@ -107,7 +103,7 @@ export default function Pagination({ queryConfig, pageSize, handleQueryPage, fro
             </span>
           ) : (
             <span
-              key={'prev'}
+              key={'prev2'}
               onClick={() => handleQueryPage(String(page - 1))}
               className='cursor-pointer relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
             >
@@ -118,7 +114,7 @@ export default function Pagination({ queryConfig, pageSize, handleQueryPage, fro
           {renderPagination()}
           {page === pageSize ? (
             <span
-              key={'next'}
+              key={'next1'}
               className='cursor-not-allowed relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
             >
               <span className='sr-only'>»</span>
@@ -126,7 +122,7 @@ export default function Pagination({ queryConfig, pageSize, handleQueryPage, fro
             </span>
           ) : (
             <span
-              key={'next'}
+              key={'next2'}
               onClick={() => handleQueryPage(String(page + 1))}
               className='relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
             >

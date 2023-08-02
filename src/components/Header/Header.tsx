@@ -6,9 +6,14 @@ import { getRefreshTokenFromLS } from '@/src/utils/auth'
 import urlAuthSSO from '@/src/utils/authSSO'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
+import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
 
 const Header = () => {
+  const router = useRouter()
+  const pathname = usePathname()
+
   const { setIsAuthenticated, isAuthenticated, setProfile, profile } = useContext(AppContext)
   const [isAuthen, setIsAuthen] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -19,6 +24,10 @@ const Header = () => {
     onSuccess: () => {
       setIsAuthenticated(false)
       setProfile(null)
+      setIsAuthen(false)
+      if (pathname !== '/coding') {
+        router.push('/logout')
+      }
     }
   })
 
@@ -28,9 +37,8 @@ const Header = () => {
     staleTime: 60 * 60 * 1000
   })
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     logoutMutaion.mutate({ refresh_token })
-    setIsAuthen(false)
   }
   const handleLogin = () => {
     let urlLogin = urlAuthSSO(process.env.SSO_URL_LOGIN, location.pathname)
@@ -42,7 +50,9 @@ const Header = () => {
   return (
     <div className='navbar bg-secondary-content text-primary-content shadow-lg sticky z-40 top-0'>
       <div className='flex-1'>
-        <Image src='/logo.svg' alt='' width={117} height={40} />
+        <Link href='/'>
+          <Image src='/logo.svg' alt='' width={117} height={40} />
+        </Link>
       </div>
       {loading ? (
         isAuthen ? (

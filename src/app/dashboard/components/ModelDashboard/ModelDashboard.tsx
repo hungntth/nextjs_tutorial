@@ -1,21 +1,35 @@
 import { getLanguages } from '@/src/api/language.api'
-import { createProject } from '@/src/api/project.api'
+import { createProject, getAllMyProject } from '@/src/api/project.api'
 import Input from '@/src/components/Input'
 import Modal from '@/src/components/Modal'
 import { ILanguage } from '@/src/types/language.type'
 import { ProjectRequest } from '@/src/types/project.type'
 import { schema } from '@/src/utils/rules'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import type { NextPage } from 'next'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import SelectorDashboard from '../SelectorDashboad'
+import { useRouter } from 'next/navigation'
 
 const projectSchema = schema.pick(['name', 'language_id'])
 
-const ModalDashboard: NextPage = () => {
+const CURRENT_PAGE = 1
+const PER_PAGE = 12
+const LANGUAGE_ID = ''
+const DELETED = false
+
+interface Props {
+  setLanguageId: Dispatch<SetStateAction<string>>
+}
+
+const ModalDashboard: NextPage<Props> = ({ setLanguageId }) => {
+  const router = useRouter()
+
+  const queryClient = useQueryClient()
+
   const [isModalOpen, setModalOpen] = useState(false)
   const [selectors, setSelectors] = useState<ILanguage[] | []>([])
 
@@ -55,7 +69,6 @@ const ModalDashboard: NextPage = () => {
 
   const addProject = useMutation({
     mutationFn: (body: ProjectRequest) => {
-      body.code = 'test_code'
       return createProject(body)
     }
   })
@@ -63,12 +76,17 @@ const ModalDashboard: NextPage = () => {
   const onSubmit = handleSubmit((data) => {
     const body = {
       ...data,
-      code: 'code_test'
+      code: 'none_code'
     }
     addProject.mutate(body, {
       onSuccess: (data) => {
-        openModal()
+        closeModal()
+        setLanguageId('')
+        queryClient.invalidateQueries({
+          queryKey: ['myProjects', CURRENT_PAGE, PER_PAGE, LANGUAGE_ID, DELETED]
+        })
         toast.success(data.data.message)
+        router.push(`coding/${data.data.data?.id}`)
       }
     })
   })

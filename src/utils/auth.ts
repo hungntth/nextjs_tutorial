@@ -10,10 +10,10 @@ export const setRefreshTokenToLS = (refresh_token: string) => {
 }
 
 export const clearLS = () => {
-  localStorage.removeItem('access_token')
-  localStorage.removeItem('profile')
-  localStorage.removeItem('refresh_token')
-  localStorage.removeItem('ally-supports-cache')
+  window.localStorage.removeItem('access_token')
+  window.localStorage.removeItem('profile')
+  window.localStorage.removeItem('refresh_token')
+  window.localStorage.removeItem('ally-supports-cache')
 }
 
 export const getAccessTokenFromLS = () => {

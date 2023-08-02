@@ -1,19 +1,13 @@
 import { AuthRequest, AuthResponse } from '@/src/types/auth.type'
-import http from '@/src/utils/http'
-import axios from 'axios'
+import createInstance from '@/src/utils/instance'
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
-const instance = axios.create({
-  baseURL: `${process.env.BASE_API}auth/login_code`,
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json'
-  }
-})
+const PATH_ROUTE = 'auth/login_code'
 
 export async function POST(request: NextRequest) {
   try {
+    const instance = createInstance(PATH_ROUTE)
     const body: AuthRequest = await request.json()
     let data = await instance.post<AuthResponse>('', body)
     const response = NextResponse.json(

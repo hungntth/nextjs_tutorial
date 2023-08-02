@@ -12,12 +12,12 @@ type Props = {
 }
 
 const Modal = ({ children, open, disableClickOutside, onClose }: Props) => {
-  const ref = useRef(null)
-  useOnClickOutside(ref, () => {
-    if (!disableClickOutside) {
-      onClose()
-    }
-  })
+  // const ref = useRef(null)
+  // useOnClickOutside(ref, () => {
+  //   if (!disableClickOutside) {
+  //     onClose()
+  //   }
+  // })
 
   const modalClass = cn({
     'modal modal-bottom sm:modal-middle': true,
@@ -25,7 +25,10 @@ const Modal = ({ children, open, disableClickOutside, onClose }: Props) => {
   })
   return (
     <div className={modalClass}>
-      <div className='modal-box' ref={ref}>
+      <div
+        className='modal-box'
+        // ref={ref}
+      >
         {children}
       </div>
     </div>

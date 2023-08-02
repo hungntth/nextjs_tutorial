@@ -30,3 +30,8 @@ code {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
   cursor: col-resize;
 }
+
+.react-codemirror-container {
+  height: 360px; /* Đặt chiều cao tối đa của ReactCodeMirror container là 400px */
+  overflow-y: auto; /* Cho phép nội dung trong container cuộn khi vượt quá chiều cao tối đa */
+}
