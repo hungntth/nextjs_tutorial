@@ -8,7 +8,7 @@ type MyEditorProps = {
 }
 
 const MyEditor = ({ language, onChange, defaultValue }: MyEditorProps) => (
-  <Editor height='100vh' onChange={(value) => onChange(value)} defaultLanguage={language} defaultValue={defaultValue} />
+  <Editor onChange={(value) => onChange(value)} defaultLanguage={language} defaultValue={defaultValue} />
 )
 
 export default MyEditor

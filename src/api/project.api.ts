@@ -23,3 +23,7 @@ export const getAllMyProject = (
 }
 
 export const createProject = (project: ProjectRequest) => http.post<ProjectResponse>(`${baseApi}projects`, project)
+
+export const getProjectById = (id: string) => http.get<ProjectResponse>(`${baseApi}projects/${id}`)
+
+export const updateProjectById = (id: string, body: any) => http.patch<any>(`${baseApi}projects/${id}`, body)

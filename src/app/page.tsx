@@ -1,8 +1,6 @@
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
-import { redirect } from 'next/navigation'
-import urlAuthSSO from '../utils/authSSO'
 import LoginButton from '../components/LoginButton'
 export default function Home() {
   return (
@@ -13,7 +11,7 @@ export default function Home() {
       <div>
         <LoginButton className='btn bg-sky-600 hover:bg-sky-700 border-none'>Đăng ký/ Đăng nhập</LoginButton>
 
-        <Link href='/my-projects' className='text-sm text-white block text-right mt-2'>
+        <Link href='/coding' className='text-sm text-white block text-right mt-2'>
           Đi đến lập trình
         </Link>
       </div>

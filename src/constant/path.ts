@@ -1,8 +1,8 @@
 const path = {
   home: '/',
   ssoCallback: '/sso-callback',
-  login: 'auth/login_code',
-  logout: 'auth/logout'
+  dashboard: '/dashboard',
+  coding: '/coding'
 }
 
 export default path

@@ -1,24 +1,26 @@
-import { useMutation } from '@tanstack/react-query'
-import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { AuthRequest } from './types/auth.type'
-import { loginAccount } from './api/auth.api'
-import { getAccessTokenFromLS } from './utils/auth'
+import { NextResponse } from 'next/server'
 
-// This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
-  // const res = await fetch("https://api-dev.codepy.vn/api/v1/users/profile", {
-  //   method: "GET",
-  //   headers: {
-  //     'Authorization': 'Bearer ' + request.cookies.get('token')?.value
-  //   },
-  // });
-  // const data = await res.json();
-  // console.log(request.cookies.get('token')?.value)
+  const { url, nextUrl, cookies } = request
+  const { value: token } = cookies.get('token') ?? { value: null }
+  const pathname = nextUrl.pathname
+
+  if (!!token && (pathname === '/' || pathname === '/sso-callback')) {
+    return NextResponse.redirect(new URL('/dashboard', url))
+  }
+
+  if (!token && pathname !== '/coding' && pathname !== '/' && pathname !== '/sso-callback') {
+    return NextResponse.redirect(new URL('/', url))
+  }
+
+  if (pathname === '/logout') {
+    return NextResponse.redirect(new URL('/', url))
+  }
+
   return NextResponse.next()
 }
 
 // See "Matching Paths" below to learn more
-export const config = {
-  matcher: '/:path*'
-}
+
+export const config = { matcher: ['/', '/dashboard', '/coding/:path*', '/sso-callback', '/logout'] }

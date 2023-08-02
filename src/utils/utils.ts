@@ -6,3 +6,10 @@ export function removeNullUndefinedKeys<T>(obj: T): T {
   }
   return obj
 }
+
+export function replacer(key: string, value: string) {
+  if (typeof value === 'string') {
+    return value.replace(/\n/g, '\\n')
+  }
+  return value
+}

@@ -11,6 +11,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useState } from 'react'
 import CollectionGrid from './components/CollectionGrid'
 import ModelDashboard from './components/ModelDashboard/ModelDashboard'
+import SkeletonDashboard from './components/SkeletonDashboard'
 
 const PER_PAGE = 12
 const DELETED = false
@@ -49,8 +50,7 @@ export default function Dashboard() {
 
   const myProjects = useQuery({
     queryKey: ['myProjects', page, PER_PAGE, languageId, DELETED],
-    queryFn: () => getAllMyProject(page, PER_PAGE, languageId, DELETED),
-    staleTime: 60 * 60 * 1000
+    queryFn: () => getAllMyProject(page, PER_PAGE, languageId, DELETED)
   })
 
   const dataProjects = myProjects.data?.data.data
@@ -69,21 +69,25 @@ export default function Dashboard() {
         <div className='py-4 flex justify-between'>
           <div className=''>
             <p className='text-2xl font-bold leading-8 tracking-tight pb-4'>Danh sách dự án</p>
-            <ModelDashboard setLanguageId={setLanguageId}/>
+            <ModelDashboard setLanguageId={setLanguageId} />
           </div>
-          <Selector data={languages} languageId={languageId} setLanguageId={setLanguageId}/>
+          <Selector data={languages} languageId={languageId} setLanguageId={setLanguageId} />
         </div>
         <Container classNames='pb-8 lg:pb-12 space-y-8'>
-          <CollectionGrid data={dataProjects?.data} />
+          {!myProjects.isLoading ? <CollectionGrid data={dataProjects?.data} /> : <SkeletonDashboard />}
         </Container>
-        <Pagination
-          queryConfig={queryConfig}
-          pageSize={pageSize}
-          handleQueryPage={handleQueryPage}
-          fromItem={fromItem}
-          toItem={toItem}
-          totalRecords={totalRecords}
-        />
+        {!myProjects.isLoading ? (
+          <Pagination
+            queryConfig={queryConfig}
+            pageSize={pageSize}
+            handleQueryPage={handleQueryPage}
+            fromItem={fromItem}
+            toItem={toItem}
+            totalRecords={totalRecords}
+          />
+        ) : (
+          <></>
+        )}
       </main>
     </div>
   )

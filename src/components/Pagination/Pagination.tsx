@@ -87,8 +87,8 @@ export default function Pagination({ queryConfig, pageSize, handleQueryPage, fro
     <div className='sm:flex sm:flex-1 sm:items-center sm:justify-between'>
       <div className='pb-2'>
         <p className='text-sm text-gray-700'>
-          Showing <span className='font-medium'>{fromItem}</span> to <span className='font-medium'>{toItem}</span> of{' '}
-          <span className='font-medium'>{totalRecords}</span> results
+          Hiển thị <span className='font-medium'>{fromItem}</span> đến <span className='font-medium'>{toItem}</span>{' '}
+          trong tổng <span className='font-medium'>{totalRecords}</span> kết quả
         </p>
       </div>
       <div className='pb-2'>

@@ -12,6 +12,7 @@ import { Dispatch, SetStateAction, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import SelectorDashboard from '../SelectorDashboad'
+import { useRouter } from 'next/navigation'
 
 const projectSchema = schema.pick(['name', 'language_id'])
 
@@ -25,6 +26,8 @@ interface Props {
 }
 
 const ModalDashboard: NextPage<Props> = ({ setLanguageId }) => {
+  const router = useRouter()
+
   const queryClient = useQueryClient()
 
   const [isModalOpen, setModalOpen] = useState(false)
@@ -60,14 +63,12 @@ const ModalDashboard: NextPage<Props> = ({ setLanguageId }) => {
   }
 
   const closeModal = () => {
-    
     reset(defaultValues)
     setModalOpen(false)
   }
 
   const addProject = useMutation({
     mutationFn: (body: ProjectRequest) => {
-      body.code = 'test_code'
       return createProject(body)
     }
   })
@@ -75,7 +76,7 @@ const ModalDashboard: NextPage<Props> = ({ setLanguageId }) => {
   const onSubmit = handleSubmit((data) => {
     const body = {
       ...data,
-      code: 'code_test'
+      code: 'none_code'
     }
     addProject.mutate(body, {
       onSuccess: (data) => {
@@ -85,6 +86,7 @@ const ModalDashboard: NextPage<Props> = ({ setLanguageId }) => {
           queryKey: ['myProjects', CURRENT_PAGE, PER_PAGE, LANGUAGE_ID, DELETED]
         })
         toast.success(data.data.message)
+        router.push(`coding/${data.data.data?.id}`)
       }
     })
   })

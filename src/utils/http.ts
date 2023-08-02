@@ -1,4 +1,7 @@
 import axios, { AxiosError, type AxiosInstance } from 'axios'
+import { toast } from 'react-toastify'
+import HttpStatusCode from '../constant/httpStatusCode.enum'
+import { AuthResponse } from '../types/auth.type'
 import {
   clearLS,
   getAccessTokenFromLS,
@@ -7,10 +10,9 @@ import {
   setProfileToLS,
   setRefreshTokenToLS
 } from './auth'
-import HttpStatusCode from '../constant/httpStatusCode.enum'
-import { toast } from 'react-toastify'
-import path from '../constant/path'
-import { AuthResponse } from '../types/auth.type'
+
+const PATH_LOGOUT = '/api/logout'
+const PATH_LOGIN = '/api/auth'
 
 class Http {
   instance: AxiosInstance
@@ -29,6 +31,9 @@ class Http {
       (config) => {
         if (this.access_token && config.headers) {
           config.headers.authorization = 'Bearer ' + this.access_token
+          if (!!config.url && PATH_LOGOUT.includes(config.url)) {
+            config.data = { ...config.data, authorization: this.access_token }
+          }
           return config
         }
         return config
@@ -40,14 +45,14 @@ class Http {
     this.instance.interceptors.response.use(
       (response) => {
         const { url } = response.config
-        if (url === '/api/auth') {
+        if (url === PATH_LOGIN) {
           const data = response.data
           this.access_token = (response.data as AuthResponse).data?.access_token
           this.refresh_token = (response.data as AuthResponse).data?.refresh_token
           setAccessTokenToLS(this.access_token)
           setRefreshTokenToLS(this.refresh_token)
           setProfileToLS(data.data.user)
-        } else if (url === path.logout) {
+        } else if (url === PATH_LOGOUT) {
           this.access_token = ''
           this.refresh_token = ''
           clearLS()

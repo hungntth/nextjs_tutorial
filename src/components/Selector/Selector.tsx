@@ -17,7 +17,9 @@ export default function Selector({ data, setLanguageId, languageId }: Props) {
         className='select select-bordered focus:outline-none max-w-[16rem] m-2 border-2 border-gray-400'
         onChange={(e) => handleSelector(e)}
       >
-        <option key='defaultOption' value=''>-------------------</option>
+        <option key='defaultOption' value=''>
+          Tất cả
+        </option>
         {data.map((item: any) => (
           <option key={item.id} value={item.id}>
             {item.name}
