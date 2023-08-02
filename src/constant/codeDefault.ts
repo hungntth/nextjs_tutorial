@@ -1,4 +1,5 @@
-export const codeDefault = `
+export const codeDefault =
+`
 
 
 
