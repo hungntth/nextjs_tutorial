@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import SelectorDashboard from '../SelectorDashboad'
 import { useRouter } from 'next/navigation'
+import { codeDefault } from '@/src/constant/codeDefault'
 
 const projectSchema = schema.pick(['name', 'language_id'])
 
@@ -76,7 +77,7 @@ const ModalDashboard: NextPage<Props> = ({ setLanguageId }) => {
   const onSubmit = handleSubmit((data) => {
     const body = {
       ...data,
-      code: 'none_code'
+      code: codeDefault
     }
     addProject.mutate(body, {
       onSuccess: (data) => {

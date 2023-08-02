@@ -20,10 +20,10 @@ const AUTO_SAVE_TIME = 30 * 1000
 export default function Coding({ params }: { params: { slug: string } }) {
   const [languageId, setLanguageId] = useState('')
   const [languages, setLanguages] = useState([])
-  const [code, setCode] = useState(codeDefault)
+  const [code, setCode] = useState('')
   const [outPut, setOutPut] = useState('Welcome world')
   const [compiling, setCompiling] = useState(false)
-  const saveInterval = useRef<any>()
+  const [count, setCount] = useState(0)
 
   const { isLoading, error, data } = useQuery({
     queryKey: ['project', params.slug],
@@ -88,9 +88,9 @@ export default function Coding({ params }: { params: { slug: string } }) {
     }
   }
 
-  const autoSave = (code: any, languageId: any) => {
+  const autoSave = (code: string, languageId: number) => {
     updateProject.mutate(
-      { code: 'code' },
+      { code: code, language_id: languageId },
       {
         onSuccess: (data) => {
           console.log({ data })
@@ -100,9 +100,23 @@ export default function Coding({ params }: { params: { slug: string } }) {
   }
 
   useEffect(() => {
-    saveInterval.current = setInterval(() => autoSave(code, +languageId), AUTO_SAVE_TIME)
+    const interval = setInterval(() => {
+      setCount((prevCount) => prevCount + 1)
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    if (count % 30 == 0) {
+      autoSave(code, +languageId)
+    }
+    console.log(count)
+  }, [count, code, languageId])
+
+  useEffect(() => {
     setLanguageId(data?.data.data?.language.id + '')
-    return () => clearInterval(saveInterval.current)
+    setCode(data?.data.data?.code + '')
   }, [data])
 
   if (isLoading) return null
